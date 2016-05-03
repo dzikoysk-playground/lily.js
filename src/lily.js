@@ -5,10 +5,10 @@ function Lily() {
     var lilyEditor = q('.lily-editor');
     var lilyEditorParent = lilyEditor.parentNode;
 
-    this.lilyWorkspace = e('div.lily-workspace');
-    this.lineNumbers = e('div.lily-line-numbers');
+    this.lilyWorkspace = e('.lily-workspace');
+    this.lineNumbers = e('.lily-line-numbers');
     this.textArea = e('textarea.lily-textarea');
-    this.editor = e('div.lily-editor');
+    this.editor = e('.lily-editor');
 
     // Editor
     this.editor.contentEditable = true;
