@@ -1,0 +1,43 @@
+@font-face {
+    font-family: cons;
+    src: url(assets/Consolas.ttf);
+}
+
+.lily-workspace {
+    width: 800px;
+    height: 300px;
+    overflow: auto;
+
+    font-size: 16px;
+    font-family: cons, Consolas, monospace;
+    border: 1px dashed gray;
+}
+
+.lily-line-numbers {
+    width: 40px;
+    min-height: 100%;
+
+    background-color: white;
+    border-right: 1px solid gray;
+}
+
+.lily-line-number {
+    margin: 2px 0 0 4px;
+    padding: 0;
+    color: black;
+}
+
+.lily-editor {
+    width: calc(100% - 41px);
+    min-height: 100%;
+    float: right;
+
+    cursor: text;
+    color: black;
+    background-color: white;
+}
+
+.lily-editor-caret {
+    color: black;
+    font-size: 18px;
+}
