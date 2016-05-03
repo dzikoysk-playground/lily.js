@@ -1,4 +1,3 @@
-
 function Lily() {
     // Initialize
     var lily = this;
@@ -10,18 +9,17 @@ function Lily() {
     this.textArea = e('textarea.lily-textarea');
     this.editor = e('div.lily-editor');
 
-    // Editor
-    this.editor.contentEditable = true;
-    this.editor.on('click', function () {
+    // Configure
+    this.textArea.on('keyup', function () {
+        lily.parse();
         lily.rs();
     });
-
-    // Parse content
     this.parse();
 
     // Apply changes
     lilyEditor.remove();
     this.lilyWorkspace.append(this.editor);
+    this.lilyWorkspace.append(this.textArea);
     this.lilyWorkspace.append(this.lineNumbers);
     lilyEditorParent.append(this.lilyWorkspace);
 }
@@ -37,11 +35,10 @@ Lily.prototype.parse = function() {
         this.lineNumbers.append(lineNumber);
     }
 
+    content = content.replace('\n', '<br>');
     this.editor.html(content);
-    this.rs();
 };
 
-// Functions
 Lily.prototype.rs = function () {
     var range = document.createRange();
     var sel = window.getSelection();
@@ -55,9 +52,10 @@ Lily.prototype.rs = function () {
 };
 
 Lily.prototype.getContent = function () {
-    return this.editor.text().replace('<br><br>', '\n');
+    return this.textArea.value.replace('<br><br>', '\n');
 };
 
+// Functions
 function getCharByKeyCode(keyCode) {
     return String.fromCharCode((96 <= keyCode && keyCode <= 105) ? keyCode - 48 : keyCode);
 }

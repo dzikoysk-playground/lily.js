@@ -5,8 +5,37 @@ html, body{
     width:100%;
 }
 
-.lily-textarea {
-    text-indent: -9999999px;
-    opacity: 0;
+.lily-workspace {
+    position: relative;
+    overflow: auto;
 }
 
+.lily-line-numbers {
+    width: 40px;
+    min-height: 100%;
+}
+
+.lily-line-number {
+    margin: 2px 0 0 4px;
+    padding: 0;
+}
+
+.lily-textarea {
+    position: absolute;
+    left: 41px;
+
+    width: calc(100% - 41px);
+    min-height: 100%;
+
+    opacity: 0;
+
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.lily-editor {
+    width: calc(100% - 41px);
+    min-height: 100%;
+    float: right;
+}
