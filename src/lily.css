@@ -4,3 +4,9 @@ html, body{
     height:100%;
     width:100%;
 }
+
+.lily-textarea {
+    text-indent: -9999999px;
+    opacity: 0;
+}
+
