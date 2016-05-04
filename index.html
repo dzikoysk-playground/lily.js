@@ -6,9 +6,72 @@
         <link rel="stylesheet" type="text/css" href="src/lily.css">
         <link rel="stylesheet" type="text/css" href="themes/material-lily.css">
         <script src="https://raw.githubusercontent.com/wvffle/waff-query.js/master/waff-query.js"></script>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            #wrapper {
+                position: relative;
+                width: 100%;
+                min-height: 100%;
+                font-family: monospace;
+            }
+
+            header {
+                height: 120px;
+                text-align: center;
+            }
+
+            h1 {
+                position: relative;
+                margin: 0px;
+                padding-top: 35px;
+            }
+
+            article {
+                text-align: center;
+                padding-bottom: 20px;
+                width: 802px;
+                margin: auto;
+            }
+
+            footer {
+                width: 100%;
+                height: 20px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                text-align: center;
+            }
+
+            footer p {
+                position: relative;
+                margin: 0 0 0 0;
+                color: slategray;
+                font-size: 10px;
+            }
+        </style>
     </head>
     <body>
-        <textarea class="lily-editor" title="Lily Editor"></textarea>
-        <script src="src/lily.js"></script>
+        <section id="wrapper">
+            <header>
+                <h1>Lily.js</h1>
+                <p>Lily.js is a client side syntax highlighter dedicated to the <a href="https://github.com/Panda-Programming-Language/Lily">Lily IDE</a></p>
+            </header>
+            <article>
+                <textarea class="lily-editor" title="Lily Editor"></textarea>
+                <script src="src/lily.js"></script>
+                <br>
+                <p>GitHub: <a href="https://github.com/cyanidepanda/Lily.js">https://github.com/cyanidepanda/Lily.js</a> </p>
+            </article>
+            <footer>
+                <p>Lily.js | dzikoysk && cyanidepanda</p>
+            </footer>
+        </section>
     </body>
 </html>

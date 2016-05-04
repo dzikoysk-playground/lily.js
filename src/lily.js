@@ -35,8 +35,11 @@ Lily.prototype.parse = function() {
         this.lineNumbers.append(lineNumber);
     }
 
-    content = content.replace('\n', '<br>');
-    this.editor.html(content);
+    var lily = this;
+    this.editor.html('');
+    lines.forEach(function (element) {
+        lily.editor.html(lily.editor.innerHTML + element + '<br>');
+    });
 };
 
 Lily.prototype.rs = function () {
@@ -52,7 +55,7 @@ Lily.prototype.rs = function () {
 };
 
 Lily.prototype.getContent = function () {
-    return this.textArea.value.replace('<br><br>', '\n');
+    return this.textArea.value;
 };
 
 // Functions

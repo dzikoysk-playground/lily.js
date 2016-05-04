@@ -1,13 +1,7 @@
-html, body{
-    margin:0;
-    padding:0;
-    height:100%;
-    width:100%;
-}
-
 .lily-workspace {
     position: relative;
     overflow: auto;
+    text-align: left;
 }
 
 .lily-line-numbers {
@@ -38,4 +32,6 @@ html, body{
     width: calc(100% - 41px);
     min-height: 100%;
     float: right;
+
+    white-space: pre;
 }
