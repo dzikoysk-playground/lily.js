@@ -50,8 +50,7 @@ Lily.prototype.initialize = function () {
 };
 
 // method 'onload'
-Lily.prototype.onload = function () {
-};
+Lily.prototype.onload = function () { };
 
 // method 'registerExtension'
 Lily.prototype.registerExtension = function (extension) {
