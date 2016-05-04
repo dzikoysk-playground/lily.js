@@ -1,6 +1,7 @@
 function Lily() {
     this.lilyWorkspace = e('div.lily-workspace');
     this.lineNumbers = e('div.lily-line-numbers');
+    this.editorContainer = e('div.lily-editor-container');
     this.textArea = e('textarea.lily-textarea');
     this.editor = e('div.lily-editor');
     this.caret = e('span.lily-editor-caret');
@@ -19,6 +20,7 @@ function Lily() {
         lily.rs();
     });
     this.textArea.css({
+        'height': this.editor.css('height'),
         'font-size': this.editor.css('font-size'),
         'font-family': this.editor.css('font-family'),
         'white-space': this.editor.css('white-space')
@@ -33,8 +35,9 @@ Lily.prototype.initialize = function () {
     var lilyEditorParent = lilyEditor.parentNode;
 
     // Apply changes
-    this.lilyWorkspace.append(this.editor);
-    this.lilyWorkspace.append(this.textArea);
+    this.editorContainer.append(this.editor);
+    this.editorContainer.append(this.textArea);
+    this.lilyWorkspace.append(this.editorContainer);
     this.lilyWorkspace.append(this.lineNumbers);
     lilyEditorParent.replaceChild(this.lilyWorkspace, lilyEditor);
 
@@ -48,7 +51,7 @@ Lily.prototype.initialize = function () {
 
 // method 'onload'
 Lily.prototype.onload = function () {
-}
+};
 
 // method 'registerExtension'
 Lily.prototype.registerExtension = function (extension) {
@@ -58,8 +61,7 @@ Lily.prototype.registerExtension = function (extension) {
         };
     }
     if (extension.onload == null) {
-        extension.onload = function () {
-        }
+        extension.onload = function () {};
     }
     this.extensions.push(extension);
     extension.initialize(this);
@@ -67,21 +69,7 @@ Lily.prototype.registerExtension = function (extension) {
 
 // method 'parse'
 Lily.prototype.parse = function () {
-    var content = this.getContent();
-    var lines = content.split('\n');
-
-    this.lineNumbers.html('');
-    for (var i = 1; i < lines.length + 1; i++) {
-        var lineNumber = e('p.lily-line-number');
-        lineNumber.html(i);
-        this.lineNumbers.append(lineNumber);
-    }
-
-    var lily = this;
-    this.editor.html('');
-    lines.forEach(function (element) {
-        lily.editor.html(lily.editor.innerHTML + element + '<br>');
-    });
+    this.reload();
 };
 
 // Method 'rs'
@@ -100,7 +88,26 @@ Lily.prototype.rs = function () {
 
 // Method 'reload'
 Lily.prototype.reload = function () {
-    this.parse();
+    var content = this.getContent();
+    var lines = content.split('\n');
+
+    var lineHeight = this.editor.css('font-size') + 4;
+    this.lineNumbers.html('');
+    for (var i = 1; i < lines.length + 1; i++) {
+        var lineNumber = e('p.lily-line-number');
+        lineNumber.html(i);
+        this.lineNumbers.append(lineNumber);
+    }
+    this.textArea.css({
+        'height': (lineHeight * lines.length + lineHeight) + 'px'
+    });
+
+    var lily = this;
+    this.editor.html('');
+    lines.forEach(function (element) {
+        lily.editor.html(lily.editor.innerHTML + element + '<br>');
+        lily.editor.scrollTop = lily.editor.scrollHeight;
+    });
 };
 
 // Method 'getContent'
@@ -117,4 +124,4 @@ function getCharByKeyCode(keyCode) {
 var lily = new Lily();
 window.onload = function () {
     lily.initialize();
-}
+};

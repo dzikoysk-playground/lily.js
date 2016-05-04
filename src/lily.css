@@ -14,14 +14,21 @@
     padding: 0;
 }
 
+.lily-editor-container {
+    position: relative;
+    width: calc(100% - 41px);
+    min-height: 100%;
+    float: right;
+}
+
 .lily-textarea {
     position: absolute;
-    left: 41px;
-
-    width: calc(100% - 41px);
+    min-width: 100%;
     min-height: 100%;
 
     opacity: 0;
+    overflow: hidden;
+    background-color: transparent;
 
     margin: 0;
     padding: 0;
@@ -29,9 +36,8 @@
 }
 
 .lily-editor {
-    width: calc(100% - 41px);
+    position: relative;
+    min-width: 100%;
     min-height: 100%;
-    float: right;
-
     white-space: pre;
 }
