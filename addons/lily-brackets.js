@@ -1,7 +1,12 @@
-function LilyBrackets(lily) {
-    this.lily = lily;
+/**
+ * LilyBrackets Extension Documentation
+ *
+ * @globalVariable lilyBrackets - global variable of extension
+ *
+ */
+
+function LilyBrackets() {
 }
 
-LilyBrackets.prototype.getLily = function () {
-    return this.lily;
-};
+var lilyBrackets = new LilyBrackets();
+lily.registerExtension(lilyBrackets);

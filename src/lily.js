@@ -1,30 +1,72 @@
 function Lily() {
-    // Initialize
-    var lily = this;
-    var lilyEditor = q('.lily-editor');
-    var lilyEditorParent = lilyEditor.parentNode;
-
     this.lilyWorkspace = e('div.lily-workspace');
     this.lineNumbers = e('div.lily-line-numbers');
     this.textArea = e('textarea.lily-textarea');
     this.editor = e('div.lily-editor');
+    this.caret = e('span.lily-editor-caret');
+    this.extensions = [];
 
     // Configure
+    setInterval(function () {
+        lily.caret.visibility = !lily.caret.visibility;
+    }, 400);
+    this.textArea.on('keypress', function () {
+        lily.parse();
+        lily.rs();
+    });
     this.textArea.on('keyup', function () {
         lily.parse();
         lily.rs();
     });
+    this.textArea.css({
+        'font-size': this.editor.css('font-size'),
+        'font-family': this.editor.css('font-family'),
+        'white-space': this.editor.css('white-space')
+    });
     this.parse();
+}
+
+// method: 'initialize'
+Lily.prototype.initialize = function () {
+    var lily = this;
+    var lilyEditor = q('.lily-editor');
+    var lilyEditorParent = lilyEditor.parentNode;
 
     // Apply changes
-    lilyEditor.remove();
     this.lilyWorkspace.append(this.editor);
     this.lilyWorkspace.append(this.textArea);
     this.lilyWorkspace.append(this.lineNumbers);
-    lilyEditorParent.append(this.lilyWorkspace);
+    lilyEditorParent.replaceChild(this.lilyWorkspace, lilyEditor);
+
+    // Load extensions
+    this.extensions.forEach(function (extension) {
+        extension.onload();
+    });
+
+    this.onload();
+};
+
+// method 'onload'
+Lily.prototype.onload = function () {
 }
 
-Lily.prototype.parse = function() {
+// method 'registerExtension'
+Lily.prototype.registerExtension = function (extension) {
+    if (extension.initialize == null) {
+        extension.initialize = function (lily) {
+            this.lily = lily;
+        };
+    }
+    if (extension.onload == null) {
+        extension.onload = function () {
+        }
+    }
+    this.extensions.push(extension);
+    extension.initialize(this);
+};
+
+// method 'parse'
+Lily.prototype.parse = function () {
     var content = this.getContent();
     var lines = content.split('\n');
 
@@ -42,26 +84,37 @@ Lily.prototype.parse = function() {
     });
 };
 
+// Method 'rs'
 Lily.prototype.rs = function () {
     var range = document.createRange();
     var sel = window.getSelection();
     try {
-        range.setStart(editor.childNodes[2], 5);
+        range.setStart(this.editor.childNodes[2], 5);
         range.collapse(true);
         sel.removeAllRanges();
         sel.addRange(range);
-    } catch (exception) {
+    }
+    catch (exception) {
     }
 };
 
+// Method 'reload'
+Lily.prototype.reload = function () {
+    this.parse();
+};
+
+// Method 'getContent'
 Lily.prototype.getContent = function () {
     return this.textArea.value;
 };
 
-// Functions
+// Utils
 function getCharByKeyCode(keyCode) {
     return String.fromCharCode((96 <= keyCode && keyCode <= 105) ? keyCode - 48 : keyCode);
 }
 
 // Run
 var lily = new Lily();
+window.onload = function () {
+    lily.initialize();
+}

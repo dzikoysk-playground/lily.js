@@ -24,10 +24,9 @@
 .lily-editor {
     cursor: text;
     color: black;
+    font-family: cons, Consolas, monospace;
     background-color: white;
 }
 
 .lily-editor-caret {
-    color: black;
-    font-size: 18px;
 }
